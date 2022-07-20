@@ -11,15 +11,6 @@
 ```
 https://lolisuki.cc/api/setu/v1
 ```
-```
-https://lolisuki.cc/api/setu/v1?level=2
-```
-```
-https://lolisuki.cc/api/setu/v1?tag=萝莉|少女&tag=白丝|黑丝&full=1
-```
-```
-...
-```
 或者
 ### POST 
 ```
@@ -82,10 +73,8 @@ Post https://lolisuki.cc/api/setu/v1
 - 4：非常涩但是还不属于R-18，属于从涩图过渡到色图之间的级别
 - 5：R18
 - 6：R18+多人运动
--
-例：如果想要查询level0-level6的作品，参数值可以填`0-6`
-
-例：如果只想查询level3的作品，参数值可以填`3`
+- 例：如果想要查询level0-level6的作品，参数值可以填`0-6`
+- 例：如果只想查询level3的作品，参数值可以填`3`
 
 ## 响应
 | 字段名	  | 数据类型 | 说明                             |
