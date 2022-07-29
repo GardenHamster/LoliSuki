@@ -97,3 +97,18 @@ Content-Type: application/json
 | `urls`        |  `object`  | 包含了4种尺寸的图片地址                            |
 | `tags`        | `string[]` | 作品标签，包含标签的中文翻译（有的话）             |
 | `extags`      | `string[]` | 扩展标签，指本人额外添加的标签（如果有空添加的话） |
+
+## 目前已有数据
+
+<div id="charts"></div>
+
+<script>
+  Vue.use(httpVueLoader);
+  new Vue({
+    el: '#charts',
+    template: '<Chart/>',
+    component: {
+        Chart: 'url:./charts.vue',
+    }
+  });
+</script>
