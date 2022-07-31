@@ -32,7 +32,7 @@ Content-Type: application/json
 | `uid`   |  `int[]`   |              | 指定画师 id                                                                  |
 | `tag`   | `string[]` |              | 指定作品标签，[详见下文](#tag)                                               |
 | `proxy` |  `string`  | `i.pixiv.re` | 图片代理服务                                                                 |
-| `level` |  `string`  |    `0-3`     | 图片的社保程度，范围为 0~6,[详见下文](#level)                                |
+| `level` |  `string`  |    `0-3`     | 图片的社保程度，范围为 0~6，[详见下文](#level)                               |
 | `full`  |   `int`    |     `0`      | 匹配 Tag 的方式，`0`为部分一致，`1`为完全一致                                |
 
 ## tag
@@ -103,30 +103,37 @@ Content-Type: application/json
 | `tags`        | `string[]` | 作品标签，包含标签的中文翻译（有的话）             |
 | `extags`      | `string[]` | 扩展标签，指本人额外添加的标签（如果有空添加的话） |
 
-## 目前已有数据
-
-<div id="charts">
-   <ve-line :data="chartData"></ve-line>
+## 已有数据
+<div id="levelRing" style="max-width:600px">
+  <ve-ring :data="chartData" :settings="chartSettings" :extend="chartExtend" />
 </div>
 
 <script>
-new Vue({
-      el: '#charts',
+  let apiUri="https://lolisuki.cc";
+
+  axios.get(`${apiUri}/api/info/v1/LevelCount`).then(function(resultData){
+    new Vue({
+      el: '#levelRing',
       data: function () {
+        let rows=[];
+        resultData.data.data.forEach((item,index)=>{
+          rows.push({'Level':`Level${item.level}(${item.count})`,'数量':item.count})
+        });
+        this.chartExtend= {
+          title: {
+            text: 'Level占比',
+            left: 'center',
+            top: 'center'
+          }
+        };
         return {
           chartData: {
-            columns: ['日期', '销售额'],
-            rows: [
-              { '日期': '1月1日', '销售额': 123 },
-              { '日期': '1月2日', '销售额': 1223 },
-              { '日期': '1月3日', '销售额': 2123 },
-              { '日期': '1月4日', '销售额': 4123 },
-              { '日期': '1月5日', '销售额': 3123 },
-              { '日期': '1月6日', '销售额': 7123 }
-            ]
+            columns: ['Level', '数量'],
+            rows: rows
           }
         }
       },
-      components: { VeLine }
+      components: { VeRing }
     })
+});
 </script>
