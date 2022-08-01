@@ -104,13 +104,63 @@ Content-Type: application/json
 | `extags`      | `string[]` | 扩展标签，指本人额外添加的标签（如果有空添加的话） |
 
 ## 已有数据
+<div id="total" style="max-width:600px">
+  <p>
+    <p style="font-size:20px;color:#FFB980;font-weight:bold;">作品数：{{resultData.setuCount}}</p>
+    <p style="font-size:20px;color:#FFB980;font-weight:bold;">画师数：{{resultData.userCount}}</p>
+  </p>
+  <p>
+    <ve-ring :data="totalData" :extend="totalExtend" :colors="totalColor" />
+  </p>
+</div>
 
 <div id="levelRing" style="max-width:600px">
-  <ve-ring :data="chartData" :extend="chartExtend" :colors="chartColor" />
+  <ve-ring :data="levelData" :extend="levelExtend" :colors="levelColor" />
+</div>
+
+<div id="requestLine" style="max-width:600px">
+  <ve-line :data="requestData" :extend="requestExtend" />
 </div>
 
 <script>
   let apiUri="https://lolisuki.cc";
+
+  axios.get(`${apiUri}/api/info/v1/TotalCount`).then(function(resultData){
+    new Vue({
+      el: '#total',
+      data: function () {
+        let rdata=resultData.data.data;
+        let rows=[
+          {
+            'Type':'R-18',
+            '数量':rdata.r18Count
+          },
+          {
+            'Type':'Safe',
+            '数量':rdata.setuCount-rdata.r18Count
+          }
+        ];
+        let r18Perce=((rdata.r18Count/rdata.setuCount)*100).toFixed(2)
+        return {
+          resultData:rdata,
+          totalData: {
+            columns: ['Type', '数量'],
+            rows: rows
+          },
+          totalExtend: {
+            title: {
+              text: `R18(${r18Perce}%)`,
+              left: 'center',
+              top: 'center'
+            }
+          },
+          totalColor: ['#5AB1EF','#19D4AE'],
+          loading: true
+        }
+      },
+      components: { VeRing }
+    })
+  });
 
   axios.get(`${apiUri}/api/info/v1/LevelCount`).then(function(resultData){
     new Vue({
@@ -121,22 +171,51 @@ Content-Type: application/json
           rows.push({'Level':`Level${item.level}(${item.count})`,'数量':item.count})
         });
         return {
-          chartData: {
+          levelData: {
             columns: ['Level', '数量'],
             rows: rows
           },
-          chartExtend: {
+          levelExtend: {
             title: {
               text: 'Level占比',
               left: 'center',
               top: 'center'
             }
           },
-          chartColor: ['#19D4AE','#5AB1EF','#FFF68F','#FFB980','#FA6E86','#DC143C','#8B0000'],
+          levelColor: ['#19D4AE','#5AB1EF','#FFF68F','#FFB980','#FA6E86','#DC143C','#8B0000'],
           loading: true
         }
       },
       components: { VeRing }
     })
-});
+  });
+
+  axios.get(`${apiUri}/api/info/v1/RequestCount`).then(function(resultData){
+    new Vue({
+      el: '#requestLine',
+      data: function () {
+        let rows=[];
+        resultData.data.data.forEach((item,index)=>{
+          rows.push({'日期':item.date,'请求数':item.count})
+        });
+        return {
+          requestData: {
+            columns: ['日期', '请求数'],
+            rows: rows
+          },
+          requestExtend: {
+            title: {
+              text: '近7日请求量',
+              left: 'center',
+              top: 'center'
+            }
+          },
+          loading: true
+        }
+      },
+      components: { VeLine }
+    })
+  });
+
+
 </script>
