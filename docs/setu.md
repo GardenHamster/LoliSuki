@@ -104,8 +104,9 @@ Content-Type: application/json
 | `extags`      | `string[]` | 扩展标签，指本人额外添加的标签（如果有空添加的话） |
 
 ## 已有数据
+
 <div id="levelRing" style="max-width:600px">
-  <ve-ring :data="chartData" :settings="chartSettings" :extend="chartExtend" />
+  <ve-ring :data="chartData" :extend="chartExtend" :colors="chartColor" />
 </div>
 
 <script>
@@ -119,18 +120,20 @@ Content-Type: application/json
         resultData.data.data.forEach((item,index)=>{
           rows.push({'Level':`Level${item.level}(${item.count})`,'数量':item.count})
         });
-        this.chartExtend= {
-          title: {
-            text: 'Level占比',
-            left: 'center',
-            top: 'center'
-          }
-        };
         return {
           chartData: {
             columns: ['Level', '数量'],
             rows: rows
-          }
+          },
+          chartExtend: {
+            title: {
+              text: 'Level占比',
+              left: 'center',
+              top: 'center'
+            }
+          },
+          chartColor: ['#19D4AE','#5AB1EF','#FFF68F','#FFB980','#FA6E86','#DC143C','#8B0000'],
+          loading: true
         }
       },
       components: { VeRing }
