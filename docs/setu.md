@@ -6,6 +6,8 @@
 
 参考了 [神代綺凛 的 Lolicon Api](https://api.lolicon.app) 的参数和返回格式，增加了 level 参数，用于区别图片的社保程度
 
+因为服务器在港区，所以请求响应的速度会相对较慢一点
+
 ?> 本 API 仅储存了作品的基本信息，并不提供图片的代理或储存服务。
 
 !> 所有图片均来自 Pixiv，图片版权归其创作者所。
@@ -35,7 +37,7 @@ Content-Type: application/json
 | `level` |  `string`  |    `0-3`     | 图片的社保程度，范围为 0~6，[详见下文](#level)                               |
 | `full`  |   `int`    |     `0`      | 匹配 Tag 的方式，`0`为部分一致，`1`为完全一致                                |
 
-## tag
+### tag
 
 Get 方式请求时，Tag 参数可以通过`&`符号连接多个。Tag 之间用`|`符号隔开时，代表只需要匹配其中任意一个
 
@@ -56,7 +58,7 @@ Content-Type: application/json
 }
 ```
 
-## level
+### level
 
 这是一个根据个人 xp 整理出来的参数，仅代表我个人认为一张色图的社保程度
 
@@ -64,7 +66,7 @@ Content-Type: application/json
 - 1：好看，也有点涩
 - 2：涩
 - 3：很涩
-- 4：非常涩但是还不属于 R-18
+- 4：R18擦边球
 - 5：R18
 - 6：R18+有氧模式
 
@@ -102,6 +104,89 @@ Content-Type: application/json
 | `urls`        |  `object`  | 包含了 4 种尺寸的图片地址                          |
 | `tags`        | `string[]` | 作品标签，包含标签的中文翻译（有的话）             |
 | `extags`      | `string[]` | 扩展标签，指本人额外添加的标签（如果有空添加的话） |
+
+## 示例
+<details>
+<summary>点击查看示例</summary>
+
+```http
+  Get https://lolisuki.cc/api/setu/v1?level=2&tag=拉菲
+```
+
+```json
+  {
+  "code": 0,
+  "error": "",
+  "data": [
+      {
+          "pid": 71645447,
+          "p": 0,
+          "total": 1,
+          "uid": 2353373,
+          "author": "2drr/ディル@FANBOX",
+          "level": 2,
+          "title": "ラフィー",
+          "description": "",
+          "r18": false,
+          "gif": false,
+          "original": false,
+          "width": 1477,
+          "height": 1200,
+          "ext": "png",
+          "uploadDate": 1542151017000,
+          "urls": {
+              "thumb": "https://i.pixiv.re/c/128x128/img-master/img/2018/11/14/00/16/57/71645447_p0_square1200.jpg",
+              "small": "https://i.pixiv.re/c/540x540_70/img-master/img/2018/11/14/00/16/57/71645447_p0_master1200.jpg",
+              "regular": "https://i.pixiv.re/img-master/img/2018/11/14/00/16/57/71645447_p0_master1200.jpg",
+              "original": "https://i.pixiv.re/img-original/img/2018/11/14/00/16/57/71645447_p0.png"
+          },
+          "tags": [
+              "ラフィー",
+              "拉菲",
+              "Laffey",
+              "アズールレーン",
+              "碧蓝航线",
+              "碧藍航線",
+              "Azur Lane",
+              "벽람항로",
+              "ロリ",
+              "萝莉",
+              "蘿莉",
+              "loli",
+              "로리",
+              "ラフィー(アズールレーン)",
+              "拉菲（碧蓝航线）",
+              "拉菲(碧藍航線)",
+              "Laffey (Azur Lane)",
+              "腋",
+              "腋下",
+              "armpits",
+              "겨드랑이",
+              "横臥",
+              "侧卧",
+              "側躺",
+              "lying on one side",
+              "アズールレーン5000users入り",
+              "碧蓝航线5000收藏",
+              "Azur Lane 5000+ bookmarks",
+              "はいてない",
+              "真空",
+              "沒穿內褲",
+              "bottomless",
+              "노팬티",
+              "尻",
+              "屁股",
+              "ass",
+              "엉덩이"
+          ],
+          "extags": []
+      }
+  ]
+}
+```
+### regular的效果图
+![markdown picture](./img/71645447_p0_master1200.jpg)
+</details>
 
 ## 已有数据
 <div id="total" style="max-width:600px">
@@ -154,8 +239,7 @@ Content-Type: application/json
               top: 'center'
             }
           },
-          totalColor: ['#5AB1EF','#19D4AE'],
-          loading: true
+          totalColor: ['#5AB1EF','#19D4AE']
         }
       },
       components: { VeRing }
@@ -182,8 +266,7 @@ Content-Type: application/json
               top: 'center'
             }
           },
-          levelColor: ['#19D4AE','#5AB1EF','#FFF68F','#FFB980','#FA6E86','#DC143C','#8B0000'],
-          loading: true
+          levelColor: ['#19D4AE','#5AB1EF','#FFF68F','#FFB980','#FA6E86','#DC143C','#8B0000']
         }
       },
       components: { VeRing }
@@ -196,11 +279,11 @@ Content-Type: application/json
       data: function () {
         let rows=[];
         resultData.data.data.forEach((item,index)=>{
-          rows.push({'日期':item.date,'请求数':item.count})
+          rows.push({'日期':item.date,'请求量':item.count})
         });
         return {
           requestData: {
-            columns: ['日期', '请求数'],
+            columns: ['日期', '请求量'],
             rows: rows
           },
           requestExtend: {
@@ -209,8 +292,7 @@ Content-Type: application/json
               left: 'center',
               top: 'center'
             }
-          },
-          loading: true
+          }
         }
       },
       components: { VeLine }
