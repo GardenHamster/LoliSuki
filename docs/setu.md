@@ -35,6 +35,7 @@ Content-Type: application/json
 | `tag`   | `string[]` |              | 指定作品标签，[详见下文](#tag)                                               |
 | `proxy` |  `string`  | `i.pixiv.re` | 图片代理服务                                                                 |
 | `level` |  `string`  |    `0-3`     | 图片的社保程度，范围为 0~6，[详见下文](#level)                               |
+| `taste` |  `string`  |     `0`      | 图片类型，多个类型之间用逗号隔开，[详见下文](#taste)                         |
 | `full`  |   `int`    |     `0`      | 匹配 Tag 的方式，`0`为部分一致，`1`为完全一致                                |
 
 ### tag
@@ -74,6 +75,21 @@ Content-Type: application/json
 
 假如只想查询 level3 的作品，参数值可以填`3`
 
+### taste
+
+图片类型，可以同时指定多个类型，多个类型之间用逗号隔开
+
+- 0：随机
+- 1：萝莉
+- 2：少女
+- 3：御姐
+
+假如想要查询 `萝莉或者少女` 类型的作品，参数值可以填`1,2`
+
+假如只想查询 `萝莉` 类型的作品，参数值可以填`1`
+
+参数为空时，默认值为`0`，假如参数中包含`0`时，将在随机类型中获取作品
+
 ## 响应
 
 | 参数名  | 数据类型 | 说明                              |
@@ -84,26 +100,28 @@ Content-Type: application/json
 
 ### setu
 
-| 字段名        |  数据类型  | 说明                                               |
-| ------------- | :--------: | -------------------------------------------------- |
-| `pid`         |   `int`    | 作品 pid                                           |
-| `p`           |   `int`    | 作品所在页                                         |
-| `total`       |   `int`    | 作品包含的图片数量                                 |
-| `uid`         |   `int`    | 作者 uid                                           |
-| `author`      |  `string`  | 作者名称                                           |
-| `level`       |   `int`    | 社保级别，[详见 level 说明](#level)                |
-| `title`       |  `string`  | 作品标题                                           |
-| `description` |  `string`  | 作品描述                                           |
-| `r18`         | `boolean`  | 是否包含 R-18 标签                                 |
-| `gif`         | `boolean`  | 是否动图，即包含动图标签                           |
-| `original`    | `boolean`  | 是否原图，pixiv 作品中返回的一个标识               |
-| `width`       |   `int`    | 原图宽度 px                                        |
-| `height`      |   `int`    | 原图高度 px                                        |
-| `ext`         |  `string`  | 图片扩展名                                         |
-| `uploadDate`  |   `int`    | 作品上传日期；时间戳，单位为毫秒                   |
-| `urls`        |  `object`  | 包含了 4 种尺寸的图片地址                          |
-| `tags`        | `string[]` | 作品标签，包含标签的中文翻译（有的话）             |
-| `extags`      | `string[]` | 扩展标签，指本人额外添加的标签（如果有空添加的话） |
+| 字段名        |  数据类型  | 说明                                                   |
+| ------------- | :--------: | ------------------------------------------------------ |
+| `pid`         |   `int`    | 作品 pid                                               |
+| `p`           |   `int`    | 作品所在页                                             |
+| `total`       |   `int`    | 作品包含的图片数量                                     |
+| `uid`         |   `int`    | 作者 uid                                               |
+| `author`      |  `string`  | 作者名称                                               |
+| `level`       |   `int`    | 社保级别，[详见 level 说明](#level)                    |
+| `taste`       |   `int`    | 图片类型，[详见 taste 说明](#taste)，这里`0`表示未分类 |
+| `title`       |  `string`  | 作品标题                                               |
+| `description` |  `string`  | 作品描述                                               |
+| `r18`         | `boolean`  | 是否包含 R-18 标签                                     |
+| `gif`         | `boolean`  | 是否动图，即包含动图标签                               |
+| `original`    | `boolean`  | 是否原图，pixiv 作品中返回的一个标识                   |
+| `width`       |   `int`    | 原图宽度 px                                            |
+| `height`      |   `int`    | 原图高度 px                                            |
+| `ext`         |  `string`  | 图片扩展名                                             |
+| `uploadDate`  |   `int`    | 作品上传日期；时间戳，单位为毫秒                       |
+| `urls`        |  `object`  | 作品所在页的4种尺寸的图片地址                          |
+| `fullUrls`    | `object[]` | 作品所有页的4种尺寸的图片地址                          |
+| `tags`        | `string[]` | 作品标签，包含标签的中文翻译（有的话）                 |
+| `extags`      | `string[]` | 扩展标签，指本人额外添加的标签（如果有空添加的话）     |
 
 ## 示例
 <details>
@@ -125,6 +143,7 @@ Content-Type: application/json
           "uid": 2353373,
           "author": "2drr/ディル@FANBOX",
           "level": 2,
+          "taste": 1,
           "title": "ラフィー",
           "description": "",
           "r18": false,
@@ -140,6 +159,14 @@ Content-Type: application/json
               "regular": "https://i.pixiv.re/img-master/img/2018/11/14/00/16/57/71645447_p0_master1200.jpg",
               "original": "https://i.pixiv.re/img-original/img/2018/11/14/00/16/57/71645447_p0.png"
           },
+          "fullUrls": [
+                {
+                  "thumb": "https://i.pixiv.re/c/128x128/img-master/img/2018/11/14/00/16/57/71645447_p0_square1200.jpg",
+                  "small": "https://i.pixiv.re/c/540x540_70/img-master/img/2018/11/14/00/16/57/71645447_p0_master1200.jpg",
+                  "regular": "https://i.pixiv.re/img-master/img/2018/11/14/00/16/57/71645447_p0_master1200.jpg",
+                  "original": "https://i.pixiv.re/img-original/img/2018/11/14/00/16/57/71645447_p0.png"
+                }
+            ],
           "tags": [
               "ラフィー",
               "拉菲",
@@ -184,7 +211,7 @@ Content-Type: application/json
   ]
 }
 ```
-### regular的效果图
+### p0的效果图
 ![markdown picture](./img/71645447_p0_master1200.jpg)
 </details>
 
