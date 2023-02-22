@@ -1,40 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<title>Lolisuki Api</title>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-		<meta name="description" content="Description" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
-		<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css" />
-		<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/v-charts-v2/lib/style.min.css" />
-		<style>
-			.content{min-width: 450px;}
-		</style>
-	</head>
-	<body>
-		<div id="app"></div>
-		<script>
-			window.$docsify = {
-				name: 'Lolisuki Api',
-				repo: 'GardenHamster/LoliSuki',
-				loadSidebar: true,
-				coverpage: true,
-				onlyCover: true,
-				subMaxLevel: 2,
-				auto2top: true,
-				nameLink: '/'
-			};
-		</script>
-		<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.js"></script>
-		<script src="//cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-		<script src="//cdn.jsdelivr.net/npm/prismjs@1.28.0/components/prism-http.min.js"></script>
-		<script src="//cdn.jsdelivr.net/npm/prismjs@1.28.0/components/prism-json.min.js"></script>
-		<script src="//cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
-		<script src="//cdn.jsdelivr.net/npm/numeral/numeral.js"></script>
-		<script src="//cdn.jsdelivr.net/npm/v-charts-v2/lib/index.min.js"></script>
-		<script src="//cdn.jsdelivr.net/npm/v-charts/lib/ring.min.js"></script>
-		<script src="//cdn.jsdelivr.net/npm/v-charts/lib/line.min.js"></script>
-		<script src="//unpkg.com/axios/dist/axios.min.js"></script>
-	</body>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Lolisuki Api</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="description" content="Description" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+	<link rel="stylesheet" href="/css/vue.css" />
+	<link rel="stylesheet" href="/css/style.min.css" />
+	<style>
+		.content {
+			min-width: 450px;
+		}
+
+		section.cover.has-mask .mask {
+			opacity: 0.75;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app"></div>
+	<script>
+		window.$docsify = {
+			name: 'Lolisuki Api',
+			repo: 'GardenHamster/LoliSuki',
+			loadSidebar: true,
+			coverpage: true,
+			onlyCover: true,
+			subMaxLevel: 2,
+			auto2top: true,
+			nameLink: '/'
+		};
+	</script>
+	<script src="/js/docsify.js"></script>
+	<script src="/js/vue.js"></script>
+	<script src="/js/prism-http.min.js"></script>
+	<script src="/js/prism-json.min.js"></script>
+	<script src="/js/echarts.min.js"></script>
+	<script src="/js/numeral.js"></script>
+	<script src="/js/index.min.js"></script>
+	<script src="/js/ring.min.js"></script>
+	<script src="/js/line.min.js"></script>
+	<script src="/js/axios.min.js"></script>
+</body>
+
 </html>
