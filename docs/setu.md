@@ -14,14 +14,16 @@
 
 !> 使用本 Api 是你个人的自愿行为，使用本 api 所造成的一切风险和不良后果均与本人无关
 
+!> **域名 lolisuki.cc 将会在2022-05-10到期，api已经迁移到了新域名 [lolisuki.cn](https://lolisuki.cn)**
+
 ## 请求
 
 ```http
-GET https://lolisuki.cc/api/setu/v1
+GET https://lolisuki.cn/api/setu/v1
 ```
 
 ```http
-POST https://lolisuki.cc/api/setu/v1
+POST https://lolisuki.cn/api/setu/v1
 Content-Type: application/json
 ```
 
@@ -46,11 +48,11 @@ Get 方式请求时，Tag 参数可以通过`&`符号连接多个。Tag 之间�
 例如想要查找（萝莉或者少女) 并且带有 (白丝或者黑丝) 的色图可以这样发送请求
 
 ```http
-Get https://lolisuki.cc/api/setu/v1?tag=萝莉|少女&tag=白丝|黑丝
+Get https://lolisuki.cn/api/setu/v1?tag=萝莉|少女&tag=白丝|黑丝
 ```
 
 ```http
-Post https://lolisuki.cc/api/setu/v1
+Post https://lolisuki.cn/api/setu/v1
 Content-Type: application/json
 {
   "tag": [
@@ -130,7 +132,7 @@ Content-Type: application/json
 <summary>点击查看示例</summary>
 
 ```http
-  Get https://lolisuki.cc/api/setu/v1?level=2&tag=拉菲
+  Get https://lolisuki.cn/api/setu/v1?level=2&tag=拉菲
 ```
 
 ```json
@@ -237,7 +239,7 @@ Content-Type: application/json
 </div>
 
 <script>
-  let apiUri="https://lolisuki.cc";
+  let apiUri="https://lolisuki.cn";
 
   axios.get(`${apiUri}/api/info/v1/TotalCount`).then(function(resultData){
     new Vue({
