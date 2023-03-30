@@ -14,7 +14,7 @@
 
 !> 使用本 Api 是你个人的自愿行为，使用本 api 所造成的一切风险和不良后果均与本人无关
 
-!> **域名 lolisuki.cc 将会在2022-05-10到期，api已经迁移到了新域名 [lolisuki.cn](https://lolisuki.cn)**
+!> **域名 lolisuki.cc 将会在2023-05-10到期，api已经迁移到了新域名 [lolisuki.cn](https://lolisuki.cn)**
 
 ## 请求
 
