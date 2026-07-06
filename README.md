@@ -1,6 +1,3 @@
 # LoliSuki Api
 
-## 文档地址
-[https://lolisuki.cn](https://lolisuki.cn)
-
-[GitHub Pages](https://gardenhamster.github.io/LoliSuki/#/)
+**工作繁忙，没有以前那么多时间收集涩图了，而且域名也过期了，所以跑路了，挥挥~~**
